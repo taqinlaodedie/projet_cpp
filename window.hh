@@ -6,6 +6,7 @@
 #include <iostream>
 #include "game.hh"
 #include <fstream>
+#include "enemyCreater.hh"
 
 class Window 
 {
@@ -35,18 +36,22 @@ private:
 	// Texture du fond
 	SDL_Texture *bg;
 	SDL_Texture *cover;
+	SDL_Texture *smoke;
 	// Texture du font
 	SDL_Texture *fontTexs[5];
-	SDL_Texture *gameTexs[5];
+	SDL_Texture *gameTexs[3];
 	// Bouton commencer
 	bool mouseOnButton;		
 	// Record du jeu
 	std::ofstream record;
 	// Charger le map
 	std::ifstream mapInfo;
+	// Createur d'enemis
+	EnemyCreater *creater;
 
 	void drawBackground();
 	void drawCover();
+	void drawSmoke();
 	void drawGameInfo();
 	void drawTitle();
 	void drawButton();

@@ -37,6 +37,7 @@ public:
 
 	friend std::ifstream &operator<<(Game &g, std::ifstream &input);		// Charger le map du jeu en utilisant un fichier
 	friend std::ofstream &operator<<(std::ofstream &output, const Game &g);	// Donner le score du jeu
+	friend Game &operator+=(Game &g, NormalEnemy *e);						// Ajouter un nouvel enemi
 private:
 	PlayerRole *pRole;					// joueur
 	std::list<NormalEnemy *> eRoles;	// list d'enemies
@@ -77,15 +78,19 @@ private:
 	bool collisionRole(Role *role1, Role *role2);					// Collision entre les roles
 	bool collisionRole(Role *role);
 	bool collisionBullet(Bullet *bullet, Role *role);				// Collision entre role et balle
+	bool collisionBullet(Bullet *eBullet, Bullet *pBullet);
 	bool collisionBarrier(Barrier *barriers, Role *role);			// Collision entre role et obstacle
 	bool collisionBarrier(Barrier *barriers, Bullet *bullet);		// Collision entre obstacle et balle
 	bool collisionBarrier(Role *role);
+
 
 	void getNextPosition(int* x, int* y, Role *role);	// Trouver la position apres un mouvement
 
 	void handleCollision(std::list<Bullet *> &bullets, SDL_Renderer *renderer, Role *eRole);	// Collision entre balle et enemie
 	void handleCollision(SDL_Renderer *renderer, Role *pRole);									// Collision entre balle et joueur
 	void handleCollision(std::list<Bullet *> &bullets, RoleType type, SDL_Renderer *renderer);	// Collision entre balle et obstacle
+	// Collision entre les balles
+	void handleCollision(std::list<Bullet *> &eBullets, std::list<Bullet *> &pBullets, SDL_Renderer *renderer);
 
 	// Exposions
 	void blast(std::vector<SDL_Texture *> &texs, Bullet *bullet, SDL_Renderer *renderer);

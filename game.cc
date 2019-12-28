@@ -21,15 +21,15 @@ void Game::newGame()
 {
 	pRole = new PlayerRole(4 * SQUARE_LENGTH * 2, 8 * SQUARE_LENGTH * 2, PLAYER, pTexs);
 
-	// Construire un jeu
-	NormalEnemy *normalEnemy= new NormalEnemy(4 * SQUARE_LENGTH * 2, 3 * SQUARE_LENGTH * 2, NORMAL_ENEMY, vec);
+	// Creer des enemies
+	/*NormalEnemy *normalEnemy = new NormalEnemy(4 * SQUARE_LENGTH * 2, 3 * SQUARE_LENGTH * 2, NORMAL_ENEMY, vec);
 	StrongEnemy *strongEnemy = new StrongEnemy(5 * SQUARE_LENGTH * 2, 5 * SQUARE_LENGTH * 2, STRONG_ENEMY, vec);
 
 	// Donner une direction 
 	normalEnemy->setCurrentDir(RoleMoveDir(rand() % 4));
 	strongEnemy->setCurrentDir(RoleMoveDir(rand() % 4));
 	eRoles.push_back(normalEnemy);
-	eRoles.push_back(strongEnemy);
+	eRoles.push_back(strongEnemy);*/
 
 	// Creer des obstacles
 	/*steelBarriers.push_back(new Barrier(6 * SQUARE_LENGTH * 2, 6 * SQUARE_LENGTH * 2, STEEL_BARRIER, barriersTexs[1]));
@@ -222,6 +222,7 @@ void Game::draw(std::list<Bullet *> &bullets, SDL_Renderer *renderer, CollisionW
 			handleCollision(eBullets, NORMAL_ENEMY, renderer);
 			break;
 		case NOT_ALL:
+			handleCollision(eBullets, pBullets, renderer);
 			break;
 		default:
 			break;
@@ -347,6 +348,40 @@ void Game::handleCollision(std::list<Bullet *> &bullets, RoleType type, SDL_Rend
 		if (!sign) {
 			(*it)->draw(renderer);
 			++it;
+		}
+	}
+}
+
+// Les balles se rencontre
+void Game::handleCollision(std::list<Bullet *> &eBullets, std::list<Bullet *> &pBullets, SDL_Renderer *renderer)
+{
+	for(std::list<Bullet *>::const_iterator it = eBullets.cbegin(); it != eBullets.cend(); ) {
+		bool sign = false;
+		for(std::list<Bullet *>::const_iterator item = pBullets.cbegin(); item != pBullets.cend(); ) {
+			// Supprimer les balles si collision
+			if (collisionBullet(*it, *item)) {
+				sign = true;
+				blast(blastTexs, *it, renderer);
+				blast(blastTexs, *item, renderer);
+				(*item)->getRole()->enableAttack(true);
+				delete (*item);
+				item = pBullets.erase(item);
+				break;
+			}
+			else{
+				(*item)->draw(renderer);
+				item++;
+			}
+		}
+		if(sign) {
+			(*it)->getRole()->enableAttack(true);
+			delete (*it);
+			it = eBullets.erase(it);
+			break;
+		}
+		else {
+			(*it)->draw(renderer);
+			it++;
 		}
 	}
 }
@@ -490,6 +525,41 @@ bool Game::collisionBullet(Bullet *bullet, Role *role)
 	return false;
 }
 
+bool Game::collisionBullet(Bullet *eBullet, Bullet *pBullet)
+{
+	int distance = eBullet->getSpeed();
+	int x = eBullet->getX();
+	int y = eBullet->getY();
+
+	RoleMoveDir dir = eBullet->getDir();
+
+	switch(dir) {
+		case LEFT:
+			x -= distance;
+			break;
+		case UP:
+			y -= distance;
+			break;
+		case RIGHT:
+			x += distance;
+			break;
+		case DOWN:
+			y += distance;
+			break;
+		case NONE:
+			break;
+		default:
+			break;
+	}
+
+	int x2 = pBullet->getX();
+	int y2 = pBullet->getY();
+
+	if((abs(x2 - x) < BULLET_LENGTH) && (abs(y2 - y) < BULLET_LENGTH)) {
+		return true;
+	}
+	return false;
+}
 
 // Collision entre enemie et obstacle
 bool Game::collisionBarrier(Role *role)
@@ -708,4 +778,12 @@ std::ofstream &operator<<(std::ofstream &output, const Game &g)
 	std::cout << "record finished" << std::endl;
 
 	return output;
+}
+
+Game &operator+=(Game &g, NormalEnemy *e)
+{
+	e->setCurrentDir(RoleMoveDir(rand() % 4));
+	g.eRoles.push_back(e);
+
+	return g;
 }

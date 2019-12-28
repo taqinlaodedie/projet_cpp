@@ -19,6 +19,7 @@ Window::Window(): win(nullptr), renderer(nullptr)
 		exit(1);
 	}
 	IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG);
+	TTF_Init();
 
 	// Creer une fenetre
 	win= SDL_CreateWindow(WINDOW_CAPTION, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
@@ -39,6 +40,7 @@ void Window::init()
 {
 	game = new Game(vec, pTexs, bulletTex, blastTexs, barrierTexs);
 	(*game) << mapInfo;
+	creater = new EnemyCreater(*game, vec);
 }
 
 // Charger les ressources
@@ -93,12 +95,11 @@ void Window::loadResourceFile()
 	// Fond
 	bg = loadImage("res/bg/1.png");
 	cover = loadImage("res/cover.jpeg");
+	smoke = loadImage("res/smoke.png");
 
 	gameTexs[0] = loadImage("res/button1.png");
 	gameTexs[1] = loadImage("res/button1_1.png");
-	gameTexs[2] = loadImage("res/button2.png");
-	gameTexs[3] = loadImage("res/button2_2.png");
-	gameTexs[4] = loadImage("res/title.png");
+	gameTexs[2] = loadImage("res/title.png");
 }
 
 Window::~Window() 
@@ -151,6 +152,9 @@ void Window::start()
 							quit = true;
 							record << *game << std::endl;	// Enregistrer le record en sortant le jeu
 							break;
+						case SDLK_SPACE:
+							record << *game << std::endl;
+							break;
 						default:
 							break;
 					}
@@ -190,8 +194,10 @@ void Window::update()
 	SDL_Delay(15);
 	SDL_RenderClear(renderer);
 	if(game->started) {
+		creater->create();
 		drawBackground();	// Afficher le fond
 		drawGameInfo();	// Afficher les info du jeu
+		drawSmoke();
 		game->draw(renderer);
 	}
 	else {
@@ -222,7 +228,7 @@ SDL_Texture *Window::loadImage(std::string filePath)
 
 void Window::drawText(std::string message, int x, int y, int flag)
 {
-	SDL_Color color = { 255, 255, 255 };
+	SDL_Color color = { 0, 0, 0 };
 	//std::cout << message.c_str() << std::endl;
 	SDL_Surface* surface = TTF_RenderText_Blended(font, message.c_str(), color);
 
@@ -264,6 +270,14 @@ void Window::drawBackground()
 	SDL_RenderCopy(renderer, bg, NULL, &rect);
 }
 
+void Window::drawSmoke()
+{
+	int width = 0, height = 0;
+	SDL_QueryTexture(smoke, NULL, NULL, &width, &height);
+	SDL_Rect rect = { SMOKE_X_POSITION, SMOKE_Y_POSITION, width, height };
+	SDL_RenderCopy(renderer, smoke, NULL, &rect);
+}
+
 void Window::drawCover()
 {
 	SDL_Rect rect = { 0, 0, GAME_RIGHT_AREA + 200, GAME_BOTTOM_AREA };
@@ -284,9 +298,9 @@ void Window::drawGameInfo()
 void Window::drawTitle()
 {
 	int width = 0, height = 0;
-	SDL_QueryTexture(gameTexs[4], NULL, NULL, &width, &height);
+	SDL_QueryTexture(gameTexs[2], NULL, NULL, &width, &height);
 	SDL_Rect rect = { TITLE_X_POS, TITLE_Y_POS, width, height };
-	SDL_RenderCopy(renderer, gameTexs[4], NULL, &rect);
+	SDL_RenderCopy(renderer, gameTexs[2], NULL, &rect);
 }
 
 void Window::drawButton()

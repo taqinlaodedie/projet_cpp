@@ -10,3 +10,30 @@ Fri Dec 27 15:15:03 2019
 Fri Dec 27 15:24:36 2019
 	Score: 6
 
+Sat Dec 28 12:38:22 2019
+	Score: 6
+
+Sat Dec 28 12:40:54 2019
+	Score: 6
+
+Sat Dec 28 12:42:50 2019
+	Score: 6
+
+Sat Dec 28 12:43:40 2019
+	Score: 3
+
+Sat Dec 28 12:43:44 2019
+	Score: 6
+
+Sat Dec 28 12:43:46 2019
+	Score: 6
+
+Sat Dec 28 13:46:17 2019
+	Score: 6
+
+Sat Dec 28 14:10:14 2019
+	Score: 4
+
+Sat Dec 28 14:23:25 2019
+	Score: 6
+

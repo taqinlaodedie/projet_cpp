@@ -30,6 +30,8 @@
 #define SCORE_Y_POSITION	30
 #define LIFE_POSITION		550
 #define GAME_LEVEL_POSITION	60
+#define SMOKE_X_POSITION	(780 - 60)
+#define SMOKE_Y_POSITION	0
 
 // Position des elements interface
 #define TITLE_X_POS			200
