@@ -37,3 +37,48 @@ Sat Dec 28 14:10:14 2019
 Sat Dec 28 14:23:25 2019
 	Score: 6
 
+Wed Jan  1 17:17:34 2020
+	Score: 9
+
+Wed Jan  1 17:17:50 2020
+	Score: 3
+
+Wed Jan  1 17:26:11 2020
+	Score: 3
+
+Wed Jan  1 18:13:52 2020
+	Score: 3
+
+Wed Jan  1 18:14:56 2020
+	Score: 3
+
+Wed Jan  1 18:20:14 2020
+	Score: 5
+
+Wed Jan  1 18:25:21 2020
+	Score: 12
+
+Wed Jan  1 18:48:21 2020
+	Score: 18
+
+Wed Jan  1 18:48:55 2020
+	Score: 21
+
+Wed Jan  1 18:59:32 2020
+	Score: 17
+
+Wed Jan  1 19:00:53 2020
+	Score: 22
+
+Wed Jan  1 19:01:28 2020
+	Score: 26
+
+Wed Jan  1 20:17:42 2020
+	Score: 5
+
+Sat Jan  4 18:46:43 2020
+	Score: 14
+
+Sat Jan  4 18:47:35 2020
+	Score: 25
+

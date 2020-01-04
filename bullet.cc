@@ -6,7 +6,7 @@ Bullet::Bullet(int x, int y, RoleMoveDir dir, SDL_Texture *texture, Role *role):
 	bulletSpeed = INIT_BULLET_SPEED;
 }
 
-void Bullet::draw(SDL_Renderer* renderer)
+void Bullet::draw(SDL_Renderer *renderer)
 {
 	int width = 0, height = 0;
 	SDL_QueryTexture(tex, NULL, NULL, &width, &height);

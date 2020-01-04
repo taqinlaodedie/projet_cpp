@@ -51,11 +51,6 @@ int Game::getScore() const
 		return 0;
 }
 
-void Game::loadStage(int lv)
-{
-	// Pas encore develope
-}
-
 void Game::handleInput(RoleMoveDir dir)
 {
 	if (started)
@@ -119,8 +114,8 @@ void Game::draw(SDL_Renderer* renderer)
 			//std::cout << (*it)->getX() << std::endl;
 
 			// Attaquer aleatoirement
-			if((*it)->attack()) {
-				if((*it)->canAttack()) {
+			if((*it) && (*it)->attack()) {
+				if((*it) && (*it)->canAttack()) {
 					Bullet *bullet = new Bullet((*it)->getX() + SQUARE_LENGTH - BULLET_LENGTH / 2, (*it)->getY() + SQUARE_LENGTH - BULLET_LENGTH / 2, 
 						(*it)->currentDir, bulletTex, (*it));
 					eBullets.push_back(bullet);
@@ -245,7 +240,7 @@ void Game::handleCollision(std::list<Bullet *> &bullets, SDL_Renderer *renderer,
 				delete (*item);
 				item = pBullets.erase(item);
 				pRole->enableAttack(true);
-				playerScore += (*it)->getAttack();;
+				playerScore += (*it)->getScore();;
 				// Supprimer enemie
 				delete (*it);
 				it = eRoles.erase(it);
@@ -264,14 +259,13 @@ void Game::handleCollision(std::list<Bullet *> &bullets, SDL_Renderer *renderer,
 	}
 }
 
-// Tuer joueur
+// Attaquer joueur
 void Game::handleCollision(SDL_Renderer *renderer, Role *pRole)
 {
 	for(std::list<Bullet *>::const_iterator it = eBullets.cbegin(); it != eBullets.cend(); ) {
 		if(collisionBullet(*it, pRole)) {
 			std::cout << "Player is hitted" << std::endl;
-			NormalEnemy *item = dynamic_cast<NormalEnemy *>((*it)->getRole());
-			playerScore -= (item->getAttack());
+			playerScore -= rand() % 2 + 1;
 			std::cout << "Score: " << playerScore << std::endl;
 			blast(blastTexs, *it, renderer);
 			(*it)->getRole()->enableAttack(true);
@@ -525,6 +519,7 @@ bool Game::collisionBullet(Bullet *bullet, Role *role)
 	return false;
 }
 
+// Collision entre deux balles
 bool Game::collisionBullet(Bullet *eBullet, Bullet *pBullet)
 {
 	int distance = eBullet->getSpeed();
@@ -556,8 +551,10 @@ bool Game::collisionBullet(Bullet *eBullet, Bullet *pBullet)
 	int y2 = pBullet->getY();
 
 	if((abs(x2 - x) < BULLET_LENGTH) && (abs(y2 - y) < BULLET_LENGTH)) {
+		//std::cout << "collision bullet" << std::endl;
 		return true;
 	}
+	//std::cout << "no collision bullet" << std::endl;
 	return false;
 }
 
@@ -727,6 +724,7 @@ void Game::clear(std::list<Bullet *> &bullets)
 
 Game::~Game()
 {
+	//std::cout << "end game" << std::endl;
 	for(std::list<NormalEnemy *>::const_iterator it = eRoles.cbegin(); it != eRoles.cend(); it++) {
 		if(*it)
 			delete (*it);

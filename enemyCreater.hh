@@ -8,5 +8,5 @@ public:
 	void create();
 private:
 	Game &game;
-	std::vector<std::vector<SDL_Texture *>> vec;
+	std::vector<std::vector<SDL_Texture *>> &vec;
 };

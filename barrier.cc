@@ -1,6 +1,6 @@
 #include "barrier.hh"
 
-Barrier::Barrier(int x, int y, BarrierType type, SDL_Texture* texture): _x(x), _y(y), type(type), tex(texture)
+Barrier::Barrier(int x, int y, BarrierType type, SDL_Texture *texture): _x(x), _y(y), type(type), tex(texture)
 {
 	switch(type) {
 		case NORMAL_BARRIER:
@@ -20,7 +20,7 @@ Barrier::Barrier(int x, int y, BarrierType type, SDL_Texture* texture): _x(x), _
 	}
 }
 
-void Barrier::draw(SDL_Renderer* renderer)
+void Barrier::draw(SDL_Renderer *renderer)
 {
 	int width = 0, height = 0;
 	SDL_QueryTexture(tex, NULL, NULL, &width, &height);

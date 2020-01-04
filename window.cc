@@ -353,8 +353,8 @@ void Window::destroyTexture()
 
 	SDL_DestroyTexture(bg);
 
-	for (int i=0; i<5; ++i)
+	for (int i = 0; i < 5; i++)
 		SDL_DestroyTexture(fontTexs[i]);
-	for (int i=0; i<5; ++i)
+	for (int i = 0; i < 3; i++)
 		SDL_DestroyTexture(gameTexs[i]);
 }

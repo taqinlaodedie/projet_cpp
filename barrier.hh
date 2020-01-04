@@ -9,11 +9,11 @@
 class Barrier
 {
 public:
-	Barrier(int x, int y, BarrierType type, SDL_Texture* texture);
+	Barrier(int x, int y, BarrierType type, SDL_Texture *texture);
 	~Barrier(void);
 
 public:
-	void draw(SDL_Renderer* renderer);
+	void draw(SDL_Renderer *renderer);
 
 	int getX() const { return _x; }
 	int getY() const { return _y; }

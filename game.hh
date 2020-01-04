@@ -24,12 +24,11 @@ public:
 		std::vector<SDL_Texture *> &barriersTexs);
 	~Game();
 
-	void draw(SDL_Renderer* renderer);		// Afficher tous les elements
+	void draw(SDL_Renderer *renderer);		// Afficher tous les elements
 	void handleInput(RoleMoveDir dir);		// Gestion des entrees du sens
 	void attack();							// Gestion des attaques
 	void clear();							// Netoyer les elements
 	void newGame();							// Initialiser la carte et les roles
-	void loadStage(int lv);					// Charger les diffenrents niveau du jeu
 	int getEnemyCount();					// Nombre d'enemies
 	int getGameLevel() const;				// Niveau du jeu
 	int getScore() const;					// Score du joueur

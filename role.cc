@@ -32,8 +32,7 @@ void Role::move(RoleMoveDir dir)
 
 void Role::setCurrentDir(RoleMoveDir dir)
 {
-	switch (dir)
-	{
+	switch(dir) {
 	case LEFT:
 		currentDir = LEFT;
 		break;
@@ -58,12 +57,11 @@ bool Role::attack()
 {
 	static int attackTime = rand() % 100;
 	attackTime--;
-	if (attackTime < 0)
-	{
+	if(attackTime < 0) {
 		attackTime = rand() % 100;
 		return true;
 	}
-	else{
+	else {
 		return false;
 	}
 }

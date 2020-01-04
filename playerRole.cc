@@ -6,7 +6,7 @@ PlayerRole::PlayerRole(int x, int y, RoleType type, std::vector<SDL_Texture*>& v
 	setTextures(vec);
 }
 
-void PlayerRole::draw(SDL_Renderer* renderer)
+void PlayerRole::draw(SDL_Renderer *renderer)
 {
 	int width, height;
 	SDL_QueryTexture(textures[currentDir], NULL, NULL, &width, &height);
@@ -17,11 +17,10 @@ void PlayerRole::draw(SDL_Renderer* renderer)
 	SDL_RenderCopy(renderer, textures[currentDir], NULL, &rect);
 }
 
-void PlayerRole::setTextures(std::vector<SDL_Texture*>& vec)
+void PlayerRole::setTextures(std::vector<SDL_Texture *> &vec)
 {
-	std::vector<SDL_Texture*>::const_iterator it = vec.cbegin();
-	for (; it != vec.cend(); ++it)
-	{
+	std::vector<SDL_Texture *>::const_iterator it = vec.cbegin();
+	for(; it != vec.cend(); it++) {
 		textures.push_back(*it);
 	}
 }

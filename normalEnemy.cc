@@ -2,7 +2,7 @@
 
 NormalEnemy::NormalEnemy(int x, int y, RoleType type, std::vector<std::vector<SDL_Texture* >> &vec): Role(x, y, type)
 {
-	attackVal = 1;
+	score = 1;
 	currentDir = RoleMoveDir(rand() % 4);
 	setTextures(vec);
 }

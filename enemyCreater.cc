@@ -8,6 +8,7 @@ EnemyCreater::EnemyCreater(Game &g, std::vector<std::vector<SDL_Texture *>> &vec
 EnemyCreater::~EnemyCreater()
 {
 	// Ne rien faire
+	std::cout << "end creater" << std::endl;
 }
 
 // Creer des enemies aleatoires
