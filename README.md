@@ -1,3 +1,3 @@
 # projet_cpp
 
-换皮了一个坦克大战。
+A 2D shooting game with SDL library.
